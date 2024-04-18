@@ -12,7 +12,7 @@ dotenv.config({});
 
  
 const PORT = process.env.PORT || 5000;
-
+const __dirname=path.resolve()
 
 // middleware
 app.use(express.urlencoded({extended:true}));
@@ -28,11 +28,9 @@ app.use(cors(corsOption));
 // routes
 app.use("/api/v1/user",userRoute); 
 app.use("/api/v1/message",messageRoute);
-
- app.get("/",(req,res)=>{
-   res.status(202).send({
-    message:"hello"
-   })
+app.use(express.static(path.join(__dirname,"/frontend/build")))
+ app.get("*",(req,res)=>{
+   res.sendFile(path.join(__dirname,"frontend","build","index.html"))
  })
  connectDB().then(()=>{
   server.listen(PORT, ()=>{
