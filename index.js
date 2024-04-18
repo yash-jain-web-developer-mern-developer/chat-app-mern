@@ -34,9 +34,10 @@ app.use("/api/v1/message",messageRoute);
     message:"hello"
    })
  })
-
-server.listen(PORT, ()=>{
-    connectDB();
+ connectDB().then(()=>{
+  server.listen(PORT, ()=>{
     console.log(`Server listen at prot ${PORT}`);
 });
+ })
+
 
